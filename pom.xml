@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pitt</groupId>
+    <artifactId>platform-base-cas</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>platform-base-cas Maven Webapp</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <cas.version>5.3.16</cas.version>
+        <app.server>-tomcat</app.server>
+        <cas.client.version>3.5.1</cas.client.version>
+        <springboot.version>1.5.18.RELEASE</springboot.version>
+        <spring.framework.version>4.3.25.RELEASE</spring.framework.version>
+        <spring.security.version>4.2.10.RELEASE</spring.security.version>
+        <spring.webflow.version>2.4.5.RELEASE</spring.webflow.version>
+        <spring.data.version>Ingalls-SR17</spring.data.version>
+        <spring.jpa.version>1.11.3.RELEASE</spring.jpa.version>
+        <pac4j.version>3.6.1</pac4j.version>
+        <okhttp.version>3.10.0</okhttp.version>
+        <jackson.version>2.12.1</jackson.version>
+        <redission.version>3.15.4</redission.version>
+        <guava.vsersion>23.5-jre</guava.vsersion>
+        <opensaml.version>3.4.0</opensaml.version>
+        <druid.version>1.0.16</druid.version>
+        <hibernate.version>5.4.8.Final</hibernate.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.war.plugin.version>2.6</maven.war.plugin.version>
+        <maven-jetty-plugin.version>9.3.6.v20151106</maven-jetty-plugin.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>default</id>
+            <dependencies>
+                <!-- cas 初始化 overlay -->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-webapp${app.server}</artifactId>
+                    <version>${cas.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+
+                <!-- cas 支持的依赖项的精选 bom 列表，dependencyManagement 版本仲裁 -->
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-bom</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+
+                <!-- cas 其他功能支持需要的依赖
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-oauth-webflow</artifactId>
+                    <version>${cas.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-oauth-core</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-oauth</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.pac4j</groupId>
+                    <artifactId>pac4j-core</artifactId>
+                    <version>${pac4j.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-core-cookie-api</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-support-jpa-service-registry</artifactId>
+                    <version>${cas.version}</version>
+                </dependency>
+                -->
+
+                <!--
+                ...Additional dependencies may be placed here...
+                -->
+
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <version>4.0.1</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-bom</artifactId>
+                    <version>2.12.1</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.fasterxml.jackson</groupId>
+                    <artifactId>jackson-bom</artifactId>
+                    <version>${jackson.version}</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-framework-bom</artifactId>
+                    <version>${spring.framework.version}</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework.kafka</groupId>
+                    <artifactId>spring-kafka</artifactId>
+                    <version>2.0.0.RELEASE</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>1.7.25</version>
+                </dependency>
+
+                <!-- Guava -->
+                <dependency>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                    <version>${guava.vsersion}</version>
+                </dependency>
+
+                <!-- JDBC -->
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.1-901-1.jdbc4</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework.webflow</groupId>
+                    <artifactId>spring-webflow</artifactId>
+                    <version>${spring.webflow.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                    <version>${spring.framework.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                    <version>${spring.framework.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <!-- jpa -->
+                <dependency>
+                    <groupId>org.springframework.data</groupId>
+                    <artifactId>spring-data-jpa</artifactId>
+                    <version>${spring.jpa.version}</version>
+                </dependency>
+
+                <!-- hibernate cas自带-->
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                    <version>${hibernate.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <version>${hibernate.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-ehcache</artifactId>
+                    <version>${hibernate.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <!-- druid -->
+                <dependency>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid</artifactId>
+                    <version>${druid.version}</version>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
+        <profile>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <id>exec</id>
+            <properties>
+                <mainClassName>org.apereo.cas.web.CasWebApplication</mainClassName>
+                <isExecutable>true</isExecutable>
+                <manifestFileToUse></manifestFileToUse>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.soebes.maven.plugins</groupId>
+                        <artifactId>echo-maven-plugin</artifactId>
+                        <version>0.3.0</version>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>echo</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <echos>
+                                <echo>Executable profile to make the generated CAS web application executable.</echo>
+                            </echos>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <id>bootiful</id>
+            <properties>
+                <app.server>-tomcat</app.server>
+                <isExecutable>false</isExecutable>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-webapp${app.server}</artifactId>
+                    <version>${cas.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <id>pgp</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.s4u.plugins</groupId>
+                        <artifactId>pgpverify-maven-plugin</artifactId>
+                        <version>1.1.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <pgpKeyServer>hkp://pool.sks-keyservers.net</pgpKeyServer>
+                            <pgpKeysCachePath>${settings.localRepository}/pgpkeys-cache</pgpKeysCachePath>
+                            <scope>test</scope>
+                            <verifyPomFiles>true</verifyPomFiles>
+                            <failNoSignature>false</failNoSignature>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>shibboleth-releases</id>
+            <url>https://build.shibboleth.net/nexus/content/repositories/releases</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
